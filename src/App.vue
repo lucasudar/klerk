@@ -1,7 +1,14 @@
 <template>
   <h2>Klerk Tree form JSON</h2>
-  <div v-for="arr in arrList" :key="arr.id">
-    <Tree :tree-data="arr"></Tree>
+  <div class="choice">
+    <input type="checkbox" id="checkbox" checked>
+    <label for="checkbox">Show extra</label>
+  </div>
+  <div @click.self="showhide"
+    >{{ isShow ? 'Root [-]' : 'Root [+]'}}
+    <div v-show="isShow" v-for="arr in arrList" :key="arr.id">
+      <Tree :tree-data="arr"></Tree>
+    </div>
   </div>
 </template>
 
@@ -13,6 +20,11 @@ export default {
   components: {
     Tree
   },
+  data () {
+    return {
+      isShow: true
+    }
+  },
   async mounted () {
     await this.$store.dispatch('fetchList', {
       value: '?allowEmpty=1'
@@ -21,6 +33,9 @@ export default {
   methods: {
     fetchList () {
       this.$store.commit('fetchList')
+    },
+    showhide () {
+      this.isShow = !this.isShow
     }
   },
   computed: {
@@ -36,8 +51,17 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   color: #2c3e50;
-  margin-top: 60px;
+  box-sizing: border-box;
+  margin: 60px 150px;
+}
+
+.choice {
+  margin: 20px;
+}
+
+.choice input:checked + label {
+  font-weight: 700;
+  color: green;
 }
 </style>
