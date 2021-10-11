@@ -1,15 +1,32 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h2>Klerk Tree form JSON</h2>
+  <div v-for="arr in arrList" :key="arr.id">
+    <Tree :tree-data="arr"></Tree>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Tree from './components/Tree.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Tree
+  },
+  async mounted () {
+    await this.$store.dispatch('fetchList', {
+      value: '?allowEmpty=1'
+    })
+  },
+  methods: {
+    fetchList () {
+      this.$store.commit('fetchList')
+    }
+  },
+  computed: {
+    arrList () {
+      return this.$store.getters.allLists
+    }
   }
 }
 </script>
@@ -19,7 +36,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+
   color: #2c3e50;
   margin-top: 60px;
 }

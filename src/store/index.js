@@ -1,12 +1,10 @@
 import { createStore } from 'vuex'
+import Tree from './plugins/Tree'
 
-export default createStore({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+const store = createStore({
   modules: {
+    Tree
   }
 })
+
+export default store
