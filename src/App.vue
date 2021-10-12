@@ -1,5 +1,6 @@
 <template>
   <h2>Klerk Tree form JSON</h2>
+  <h1>{{ this.$store.getters.allSum }}</h1>
   <div class="choice">
     <input type="checkbox" id="checkbox" checked>
     <label for="checkbox" @click="showExtra">Show extra</label>

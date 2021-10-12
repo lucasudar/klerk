@@ -9,6 +9,10 @@ export default {
     changeExtra (ctx, payload) {
       const value = payload.value
       ctx.commit('updateExtra', value)
+    },
+    changeSum (ctx, payload) {
+      const value = payload.value
+      ctx.commit('updateSum', value)
     }
   },
   mutations: {
@@ -17,11 +21,15 @@ export default {
     },
     updateExtra (state, value) {
       state.isExtra = value
+    },
+    updateSum (state, value) {
+      state.sum = value
     }
   },
   state: {
     list: [],
-    isExtra: true
+    isExtra: true,
+    sum: 0
   },
   getters: {
     allLists (state) {
@@ -29,6 +37,9 @@ export default {
     },
     extra (state) {
       return state.isExtra
+    },
+    allSum (state) {
+      return state.sum
     }
   }
 }

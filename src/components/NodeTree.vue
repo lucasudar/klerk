@@ -1,10 +1,13 @@
 <template>
   <li class="node-tree">
+        <span class="choice">
+      <input type="checkbox" id="checkbox" @click="calculateCount">
+    </span>
     <a :href="link"
        :class="{ bold: isFolder }"
        target="_blank"
     >
-          {{ node.title }}</a> ({{ node.count }} {{ sumOfChildren }})
+      {{ node.title }}</a> ({{ node.count }} {{ sumOfChildren }})
     <span class="showhide" v-if="isFolder" @click="toggle"> [{{ isOpen ? '-' : '+' }}]</span>
     <ul v-show="isOpen"
         v-if="isFolder && node.children && node.children.length">
@@ -43,6 +46,12 @@ export default {
       if (this.isFolder) {
         this.isOpen = !this.isOpen
       }
+    },
+    calculateCount () {
+      const sum = this.node.count + this.node.children.reduce((prev, current) => prev + current.count, 0)
+      this.$store.dispatch('changeSum', {
+        value: sum
+      })
     }
   }
 }
@@ -73,6 +82,7 @@ a {
   text-decoration: none;
   color: black
 }
+
 a:hover {
   color: red
 }
