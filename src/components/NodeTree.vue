@@ -28,13 +28,8 @@ export default {
     sumOfChildren () {
       if (Array.isArray(this.node.children)) {
         return this.node.children.reduce((prev, current) => prev + current.count, 0)
-      } else {
-        let sum = 0
-        for (const subnode of Object.values(this.node)) {
-          sum += this.sumOfChildren(subnode)
-        }
-        return sum
       }
+      return 0
     },
     isFolder: function () {
       return this.node.children && this.node.children.length
