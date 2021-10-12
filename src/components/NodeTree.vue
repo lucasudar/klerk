@@ -1,11 +1,11 @@
 <template>
   <li class="node-tree">
-    <span :class="{bold: isFolder}"
-          @click="toggle"
+    <a :href="link"
+       :class="{ bold: isFolder }"
+       target="_blank"
     >
-          {{ node.title }} ({{ node.count }} {{ sumOfChildren }})
-    </span>
-    <span class="showhide" v-if="isFolder">[{{ isOpen ? '-' : '+' }}]</span>
+          {{ node.title }}</a> ({{ node.count }} {{ sumOfChildren }})
+    <span class="showhide" v-if="isFolder" @click="toggle"> [{{ isOpen ? '-' : '+' }}]</span>
     <ul v-show="isOpen"
         v-if="isFolder && node.children && node.children.length">
       <node v-for="child in node.children" :node="child" :key="child.index"></node>
@@ -33,6 +33,9 @@ export default {
     },
     isFolder: function () {
       return this.node.children && this.node.children.length
+    },
+    link () {
+      return 'https://www.klerk.ru' + this.node.url
     }
   },
   methods: {
@@ -48,11 +51,11 @@ export default {
 <style scoped>
 .bold {
   font-weight: bold;
-  cursor: pointer;
 }
 
 .showhide {
   font-weight: bold;
+  cursor: pointer;
 }
 
 ul {
@@ -61,4 +64,8 @@ ul {
   list-style-type: dot;
 }
 
+a {
+  text-decoration: none;
+  color: black
+}
 </style>
