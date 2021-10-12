@@ -55,9 +55,11 @@ export default {
   font-weight: bold;
   cursor: pointer;
 }
+
 .showhide {
   font-weight: bold;
 }
+
 ul {
   padding-left: 1em;
   line-height: 1.5em;

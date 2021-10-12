@@ -2,12 +2,12 @@
   <h2>Klerk Tree form JSON</h2>
   <div class="choice">
     <input type="checkbox" id="checkbox" checked>
-    <label for="checkbox">Show extra</label>
+    <label for="checkbox" @click="showExtra">Show extra</label>
   </div>
   <div @click.self="showhide"
-    >{{ isShow ? 'Root [-]' : 'Root [+]'}}
-    <div v-show="isShow" v-for="arr in arrList" :key="arr.id">
-      <Tree :tree-data="arr"></Tree>
+  >{{ isShow ? 'Root [-]' : 'Root [+]' }}
+    <div v-show="isShow" v-for="obj in arrList" :key="obj.id">
+      <Tree :tree-data="obj"></Tree>
     </div>
   </div>
 </template>
@@ -31,11 +31,25 @@ export default {
     })
   },
   methods: {
-    fetchList () {
-      this.$store.commit('fetchList')
-    },
     showhide () {
       this.isShow = !this.isShow
+    },
+    showExtra () {
+      if (this.$store.getters.extra) {
+        this.$store.dispatch('fetchList', {
+          value: ''
+        })
+        this.$store.dispatch('changeExtra', {
+          value: false
+        })
+      } else {
+        this.$store.dispatch('fetchList', {
+          value: '?allowEmpty=1'
+        })
+        this.$store.dispatch('changeExtra', {
+          value: true
+        })
+      }
     }
   },
   computed: {
@@ -55,11 +69,9 @@ export default {
   box-sizing: border-box;
   margin: 60px 150px;
 }
-
 .choice {
   margin: 20px;
 }
-
 .choice input:checked + label {
   font-weight: 700;
   color: green;

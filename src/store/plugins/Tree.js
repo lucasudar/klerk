@@ -5,21 +5,30 @@ export default {
       const list = await result.json()
 
       ctx.commit('updateList', list)
-      // TODO: сделать нажатие чекбокса для передачи параметра в эндпойнт
-      // ctx.commit('updatePage', payload)
+    },
+    changeExtra (ctx, payload) {
+      const value = payload.value
+      ctx.commit('updateExtra', value)
     }
   },
   mutations: {
     updateList (state, list) {
       state.list = list
+    },
+    updateExtra (state, value) {
+      state.isExtra = value
     }
   },
   state: {
-    list: []
+    list: [],
+    isExtra: true
   },
   getters: {
     allLists (state) {
       return state.list
+    },
+    extra (state) {
+      return state.isExtra
     }
   }
 }
