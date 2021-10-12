@@ -64,8 +64,16 @@ ul {
   list-style-type: dot;
 }
 
+li {
+  margin-top: 10px;
+  list-style-type: none;
+}
+
 a {
   text-decoration: none;
   color: black
+}
+a:hover {
+  color: red
 }
 </style>
