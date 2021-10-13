@@ -1,7 +1,7 @@
 <template>
   <li class="node-tree">
         <span class="choice">
-      <input type="checkbox" id="checkbox" @click="calculateCount">
+      <input type="checkbox" id="checkbox" :value="node.count" @click="calculateCount">
     </span>
     <a :href="link"
        :class="{ bold: isFolder }"
